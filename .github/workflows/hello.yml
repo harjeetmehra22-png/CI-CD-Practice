@@ -1,0 +1,10 @@
+cat > .github/workflows/hello.yml << 'EOF'
+name: Hello CI/CD
+on: [push]
+jobs:
+  hello-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello
+        run: echo "Hello Interns ■ Your first CI/CD workflow works!"
+EOF
