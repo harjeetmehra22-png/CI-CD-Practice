@@ -1,1 +1,1 @@
-print("Hello from Python inside CI/CD ■")
+print("Hello from Dockerized CI/CD ■")
