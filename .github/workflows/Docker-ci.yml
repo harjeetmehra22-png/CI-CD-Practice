@@ -1,0 +1,28 @@
+name: Dockerized App CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t dockerized-app:${{ github.run_number }} .
+
+      - name: Run container and save stdout to file
+        run: docker run --rm dockerized-app:${{ github.run_number }} > output.txt
+
+      - name: Show output (for logs)
+        run: cat output.txt
+
+      - name: Upload output as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dockerized-app-output
+          path: output.txt
