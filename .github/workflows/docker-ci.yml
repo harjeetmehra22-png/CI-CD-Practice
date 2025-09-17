@@ -19,7 +19,7 @@ jobs:
 
       - name: Run container and save output
         run: |
-          docker run --rm dockerized-ci-cd:latest > output.txt
+          docker run --rm dockerized-ci-cd:latest | tee output.txt
           echo "Saved output to output.txt"
 
       - name: Upload output artifact
