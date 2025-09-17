@@ -3,32 +3,21 @@ pipeline {
 
   stages {
     stage('Checkout') {
-      steps { checkout scm }
-    }
-
-    stage('Build Docker image') {
       steps {
-        script {
-          sh 'docker build -t dockerized-app:${BUILD_NUMBER} .'
-        }
+        checkout scm
       }
     }
 
-    stage('Run container and capture output') {
+    stage('Build Docker Image') {
       steps {
-        script {
-          sh 'docker run --rm dockerized-app:${BUILD_NUMBER} > output.txt || true'
-          sh 'echo "=== Container output ==="'
-          sh 'cat output.txt || true'
-        }
+        sh 'docker build -t dockerized-ci-cd:latest .'
       }
     }
-  }
 
-  post {
-    always {
-      archiveArtifacts artifacts: 'output.txt', fingerprint: true
-      sh 'docker rmi dockerized-app:${BUILD_NUMBER} || true'
+    stage('Run Container') {
+      steps {
+        sh 'docker run --rm dockerized-ci-cd:latest'
+      }
     }
   }
 }
