@@ -1,33 +1,29 @@
-name: Dockerized App CI
+name: Docker Build and Run Practical-1
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    paths:
+      - 'Practical-1/**'
+  workflow_dispatch:
 
 jobs:
   build-and-run:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build -t dockerized-ci-cd:latest .
+        working-directory: Practical-1
+        run: docker build -t dockerized-ci-cd:latest -f Dockerfile .
 
-      - name: Run container and save output
-        run: |
-          docker run --rm dockerized-ci-cd:latest | tee output.txt
-          echo "Saved output to output.txt"
+      - name: Run container and capture output
+        working-directory: Practical-1
+        run: docker run --rm dockerized-ci-cd:latest > output.txt
 
-      - name: Show output (for logs)
-        run: cat output.txt
-    
-
-      - name: Upload output artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-output
-          path: output.txt
+          name: practical-1-output
+          path: Practical-1/output.txt
