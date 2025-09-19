@@ -11,7 +11,7 @@ pipeline {
     stage('Build Docker Image') {
       steps {
         dir('Practical-1') {
-          sh 'docker build -t dockerized-ci-cd:latest .'
+          sh 'docker build -t dockerized-ci-cd:latest -f Dockerfile .'
         }
       }
     }
