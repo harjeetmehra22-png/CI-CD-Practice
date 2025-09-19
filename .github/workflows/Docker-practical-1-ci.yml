@@ -15,8 +15,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        working-directory: Practical-1
-        run: docker build -t dockerized-ci-cd:latest -f Dockerfile .
+        run: docker build -t dockerized-ci-cd:latest -f $GITHUB_WORKSPACE/Practical-1/Dockerfile $GITHUB_WORKSPACE/Practical-1
+
 
       - name: Run container and capture output
         working-directory: Practical-1
