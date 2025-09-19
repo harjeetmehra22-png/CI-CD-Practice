@@ -18,7 +18,7 @@ jobs:
         run: docker build -t dockerized-ci-cd:latest -f $GITHUB_WORKSPACE/Practical-1/Dockerfile $GITHUB_WORKSPACE/Practical-1
 
       - name: Run container and capture output
-        run: docker run --rm dockerized-ci-cd:latest > $GITHUB_WORKSPACE/Practical-1/output.txt
+        run: docker run --rm -v $GITHUB_WORKSPACE/Practical-1:/app dockerized-ci-cd:latest | tee $GITHUB_WORKSPACE/Practical-1/output.txt
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
