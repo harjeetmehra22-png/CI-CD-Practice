@@ -19,7 +19,10 @@ pipeline {
     stage('Run Container') {
       steps {
         dir('Practical-1') {
-          sh 'docker run --rm dockerized-ci-cd:latest | tee output.txt'
+          sh '''
+          docker run --rm dockerized-ci-cd:latest > output.txt
+          cat output.txt
+          '''
         }
       }
     }
