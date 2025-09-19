@@ -17,13 +17,11 @@ jobs:
       - name: Build Docker image
         run: docker build -t dockerized-ci-cd:latest -f $GITHUB_WORKSPACE/Practical-1/Dockerfile $GITHUB_WORKSPACE/Practical-1
 
-
       - name: Run container and capture output
-        working-directory: Practical-1
-        run: docker run --rm dockerized-ci-cd:latest > output.txt
+        run: docker run --rm dockerized-ci-cd:latest > $GITHUB_WORKSPACE/Practical-1/output.txt
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: practical-1-output
-          path: Practical-1/output.txt
+          path: $GITHUB_WORKSPACE/Practical-1/output.txt
