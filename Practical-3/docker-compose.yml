@@ -1,0 +1,16 @@
+services:
+  flask-app:
+    build:
+      context: ./backend
+    image: "${DOCKERHUB_USERNAME:-local}/backend:latest"
+    ports:
+      - "5000:5000"
+
+  nginx-proxy:
+    build:
+      context: ./nginx
+    image: "${DOCKERHUB_USERNAME:-local}/nginx:latest"
+    ports:
+      - "8080:80"
+    depends_on:
+      - flask-app
