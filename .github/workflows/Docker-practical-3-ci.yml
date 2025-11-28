@@ -26,8 +26,6 @@ jobs:
           password: ${{ secrets.harjeet@#1993 }}
 
       - name: Build and start services with docker compose
-        env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
           docker compose -f Practical-3/docker-compose.yml up -d --build
 
